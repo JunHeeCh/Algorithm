@@ -32,8 +32,12 @@ public class Main {
 
 		for (int i = 0; i < N; i++) {
 			for (int j = i + 1; j < N; j++) {
-				int cost = (int) Math.pow(arr[i][0] - arr[j][0], 2) + (int) Math.pow(arr[i][1] - arr[j][1], 2);
-				pq.add(new int[] { i, j, cost });
+                int a = arr[i][0] - arr[j][0];
+                int b = arr[i][1] - arr[j][1];
+				int cost = a*a+b*b;
+                if(cost >= C){
+                    pq.add(new int[] { i, j, cost });
+                }
 			}
 		}
 
@@ -48,8 +52,6 @@ public class Main {
 
 		while (!pq.isEmpty()) {
 			int[] now = pq.poll();
-			if (now[2] < C)
-				continue;
 
 			// now[0], now[1] 를 잇는 다리를 연결
 			// 부모가 동일한지 확인하고
