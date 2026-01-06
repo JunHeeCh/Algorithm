@@ -18,7 +18,6 @@ public class Main {
 			for (int j = 1; j <= temp.length; j++) {
 				if (i + j > temp.length)
 					break;
-				String s = String.copyValueOf(temp, i, j);
 				set.add(String.copyValueOf(temp, i, j));
 			}
 		}
