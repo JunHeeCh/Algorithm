@@ -12,8 +12,8 @@ class Solution {
         });
         
         int bmax = 0;
-        
-        List<node> list = new ArrayList();
+                
+        int order = 1;
         
         for(int i=0; i<scores.length; i++){
             int a = scores[i][0];
@@ -23,41 +23,12 @@ class Solution {
                 if (a == wanhoA && b == wanhoB) return -1;
                 continue;
             }
-            bmax = b;
-            
-            if (a == wanhoA && b == wanhoB) {
-                list.add(new node(a+b, 0, true));
-            }else{
-                list.add(new node(a+b, 0, false));
-            }
+            bmax =Math.max(bmax, b);
+
+            if(a+b>wanhoSum) order++;
         }
-        
-        list.sort((x,y)->{
-            return Integer.compare(y.sum, x.sum);
-        });
-        
-        for(int i=0; i<list.size(); i++){
-            list.get(i).order = i+1;
-            if(i>0 && list.get(i).sum == list.get(i-1).sum){
-                list.get(i).order = list.get(i-1).order;
-            }
-            if(list.get(i).is){
-                return list.get(i).order;
-            }
-        }
-        
-        return 0;
+
+        return order;
     }
 }
 
-class node{
-    int sum;
-    int order;
-    boolean is;
-    
-    public node(int sum, int order, boolean flag){
-        this.sum = sum;
-        this.order = order;
-        this.is = flag;
-    }
-}
