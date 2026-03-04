@@ -1,10 +1,11 @@
 -- 코드를 입력하세요
-SELECT ID, NAME, HOST_ID
-FROM PLACES
-WHERE HOST_ID IN (
+select *
+from places
+where host_id in (
     SELECT HOST_ID
-    FROM PLACES
-    GROUP BY HOST_ID
-    HAVING COUNT(ID)>=2
+    from PLACES 
+    group by HOST_ID
+    having count(id) > 1
 )
-ORDER BY ID
+order by 1
+

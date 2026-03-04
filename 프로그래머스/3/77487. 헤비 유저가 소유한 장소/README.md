@@ -1,6 +1,6 @@
 # [level 3] 헤비 유저가 소유한 장소 - 77487 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/77487) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/77487?language=oracle) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@ Empty
 
 ### 제출 일자
 
-2025년 12월 25일 20:40:35
+2026년 03월 04일 21:25:08
 
 ### 문제 설명
 
