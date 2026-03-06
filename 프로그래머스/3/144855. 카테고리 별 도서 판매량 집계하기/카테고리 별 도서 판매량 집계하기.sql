@@ -1,9 +1,12 @@
-SELECT a.CATEGORY, sum(b.sales) as TOTAL_SALES
-from book a
-    join (
-        select book_id, sales
-        from book_sales
-        where sales_date like "2022-01%") b
-    on a.book_id = b.book_id
-group by a.category
-order by a.CATEGORY 
+-- 코드를 입력하세요
+select CATEGORY, SUM(TOTAL) TOTAL_SALES
+from BOOK a
+join (
+    SELECT BOOK_ID, SUM(SALES) AS TOTAL
+    from BOOK_SALES 
+    where SALES_DATE >= date '2022-01-01' and SALES_DATE < date '2022-02-01'
+    GROUP BY BOOK_ID
+) b
+on a.BOOK_ID = b.BOOK_ID
+group by CATEGORY
+ORDER BY CATEGORY
