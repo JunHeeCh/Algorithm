@@ -1,14 +1,10 @@
 -- 코드를 입력하세요
-SELECT CONCAT("/home/grep/src/", BOARD_ID, "/", FILE_ID, FILE_NAME, FILE_EXT) AS FILE_PATH
-FROM USED_GOODS_FILE 
-WHERE BOARD_ID = (
+select '/home/grep/src/' || BOARD_ID || '/' || FILE_ID || FILE_NAME || FILE_EXT FILE_PATH
+from USED_GOODS_FILE 
+where BOARD_ID = (
     SELECT BOARD_ID
-    FROM USED_GOODS_BOARD 
-    ORDER BY VIEWS DESC
-    LIMIT 1
-)   
+    from USED_GOODS_BOARD
+    order by VIEWS desc
+    fetch next 1 rows only
+)
 ORDER BY FILE_ID DESC
-
-
- 
-
