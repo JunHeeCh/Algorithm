@@ -9,11 +9,11 @@ public class Main {
 
 		boolean[] arr = new boolean[10001];
 
-		for (int i = 2; i < arr.length; i++) {
-			for (int j = 2; j < arr.length; j++) {
-				if (i * j >= arr.length)
-					break;
-				arr[i * j] = true;
+		for (int i = 2; i * i < arr.length; i++) {
+			if (arr[i])
+				continue;
+			for (int j = i * i; j < arr.length; j += i) {
+				arr[j] = true;
 			}
 		}
 
