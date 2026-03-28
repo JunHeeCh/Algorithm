@@ -1,6 +1,6 @@
 # [level 2] 동명 동물 수 찾기 - 59041 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/59041) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/59041?language=oracle) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@ Empty
 
 ### 제출 일자
 
-2026년 02월 16일 23:09:05
+2026년 03월 28일 20:50:01
 
 ### 문제 설명
 
