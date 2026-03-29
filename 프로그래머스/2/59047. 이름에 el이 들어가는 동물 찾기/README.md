@@ -1,6 +1,6 @@
 # [level 2] 이름에 el이 들어가는 동물 찾기 - 59047 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/59047) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/59047?language=oracle) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@ Empty
 
 ### 제출 일자
 
-2026년 02월 15일 20:08:56
+2026년 03월 29일 22:03:57
 
 ### 문제 설명
 
