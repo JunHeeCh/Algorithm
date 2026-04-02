@@ -1,6 +1,6 @@
 # [level 2] 카테고리 별 상품 개수 구하기 - 131529 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/131529) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/131529?language=oracle) 
 
 ### 성능 요약
 
@@ -12,11 +12,11 @@
 
 ### 채점결과
 
-Empty
+합계: 100.0 / 100.0
 
 ### 제출 일자
 
-2026년 02월 12일 23:02:47
+2026년 04월 02일 22:54:19
 
 ### 문제 설명
 
