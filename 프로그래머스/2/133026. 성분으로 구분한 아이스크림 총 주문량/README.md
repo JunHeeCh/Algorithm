@@ -1,6 +1,6 @@
 # [level 2] 성분으로 구분한 아이스크림 총 주문량 - 133026 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/133026) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/133026?language=oracle) 
 
 ### 성능 요약
 
@@ -12,11 +12,11 @@
 
 ### 채점결과
 
-Empty
+합계: 100.0 / 100.0
 
 ### 제출 일자
 
-2026년 02월 01일 20:47:12
+2026년 04월 10일 19:26:56
 
 ### 문제 설명
 
