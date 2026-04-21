@@ -3,7 +3,6 @@ import java.util.*;
 
 public class Main {
 
-	static Set<String> set = new HashSet();
 	static StringBuilder pr = new StringBuilder();
 
 	public static void main(String[] args) throws IOException {
@@ -32,24 +31,24 @@ public class Main {
 
 	private static void func(boolean[] visited, int[] arr, int[] ans, int idx) {
 		if (idx == ans.length) {
-			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < ans.length; i++) {
-				sb.append(ans[i] + " ");
+				pr.append(ans[i] + " ");
 			}
-			if (!set.contains(sb.toString())) {
-				set.add(sb.toString());
-				pr.append(sb + "\n");
-			}
+			pr.append("\n");
 			return;
 		}
 
 		for (int i = 0; i < arr.length; i++) {
-			if (!visited[i]) {
-				visited[i] = true;
-				ans[idx] = arr[i];
-				func(visited, arr, ans, idx + 1);
-				visited[i] = false;
-			}
+			if (visited[i])
+				continue;
+			if (i > 0 && arr[i] == arr[i - 1] && !visited[i - 1])
+				continue;
+
+			visited[i] = true;
+			ans[idx] = arr[i];
+			func(visited, arr, ans, idx + 1);
+			visited[i] = false;
+
 		}
 
 	}
