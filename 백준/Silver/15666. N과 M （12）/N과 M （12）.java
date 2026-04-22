@@ -4,7 +4,6 @@ import java.util.*;
 public class Main {
 
 	static StringBuilder pr = new StringBuilder();
-	static Set<String> prev = new HashSet();
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -14,10 +13,19 @@ public class Main {
 		int n = Integer.parseInt(st.nextToken());
 		int m = Integer.parseInt(st.nextToken());
 
+		Set<Integer> set = new HashSet();
+
 		st = new StringTokenizer(br.readLine().trim());
-		int[] arr = new int[n];
+
 		for (int i = 0; i < n; i++) {
-			arr[i] = Integer.parseInt(st.nextToken());
+			int num = Integer.parseInt(st.nextToken());
+			set.add(num);
+		}
+
+		int[] arr = new int[set.size()];
+		int idx = 0;
+		for (int i : set) {
+			arr[idx++] = i;
 		}
 
 		Arrays.sort(arr);
@@ -31,14 +39,10 @@ public class Main {
 
 	private static void func(int[] arr, int[] ans, int idx, int st) {
 		if (idx == ans.length) {
-			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < ans.length; i++) {
-				sb.append(ans[i] + " ");
+				pr.append(ans[i] + " ");
 			}
-			if(!prev.contains(sb.toString())) {
-				prev.add(sb.toString());
-				pr.append(sb.toString()+"\n");
-			}
+			pr.append("\n");
 			return;
 		}
 
@@ -46,7 +50,7 @@ public class Main {
 			ans[idx] = arr[i];
 			func(arr, ans, idx + 1, i);
 		}
-		
+
 	}
 
 }
