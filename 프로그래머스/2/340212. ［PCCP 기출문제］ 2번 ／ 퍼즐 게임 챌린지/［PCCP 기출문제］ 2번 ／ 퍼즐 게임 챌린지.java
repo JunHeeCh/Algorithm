@@ -1,63 +1,31 @@
 import java.util.*;
 
 class Solution {
-    puzzle[] arr;
+
     public int solution(int[] diffs, int[] times, long limit) {
         
-        int n = diffs.length;
-        int left = 1;
-        int right = 1;
-        
-        arr = new puzzle[n];
-        
-        arr[0] = new puzzle(1, times[0], 0);
-        for(int i=1; i<n; i++){
-            arr[i] = new puzzle(diffs[i], times[i], times[i-1]);
-            left = Math.min(left, diffs[i]);
-            right = Math.max(right, diffs[i]);
-        }
-        
-        Arrays.sort(arr);
-
-        int level = (left+right)/2;
+        int left = 1, right = 100000;
         
         while(left < right){
-            if(cal(level) > limit){
-                left = level+1;
+            int mid = (left+right)/2;
+            if(cal(diffs,times,mid)>limit){
+                left = mid+1;
             }else{
-                right = level;
-            }
-            level = (left+right)/2;
-        }
-        
-        
-        return right;
-    }
-    
-    public long cal(int level){
-        long answer = 0;
-        for(int i=0; i<arr.length; i++){
-            if(arr[i].diff <= level){
-                answer += arr[i].time_cur;
-            }else{
-                answer += (long)(arr[i].diff-level)*(arr[i].time_cur+arr[i].time_prev)+arr[i].time_cur;
+                right = mid;
             }
         }
-        return answer;
-    }
-}
-class puzzle implements Comparable<puzzle>{
-    int diff;
-    int time_cur;
-    int time_prev;
-    
-    public puzzle(int diff, int cur, int prev){
-        this.diff = diff;
-        this.time_cur = cur;
-        this.time_prev = prev;
+
+        return left;
     }
     
-    public int compareTo(puzzle o){
-        return Integer.compare(this.diff, o.diff);
+    public long cal(int[] diffs, int[] times, int level){
+        long total = Math.max(0, diffs[0]-level)*(times[0])+times[0];
+        
+        for(int i=1; i<diffs.length; i++){
+            total += Math.max(0, diffs[i]-level)*(times[i]+times[i-1])+times[i];    
+        }
+        
+        return total;
     }
+
 }
