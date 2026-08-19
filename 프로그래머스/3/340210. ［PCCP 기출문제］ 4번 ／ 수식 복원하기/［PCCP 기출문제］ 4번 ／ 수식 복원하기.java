@@ -2,118 +2,80 @@ import java.util.*;
 
 class Solution {
     public String[] solution(String[] expressions) {
-
-        boolean[] globalPossible = new boolean[10];
-        Arrays.fill(globalPossible, true);
-        globalPossible[0] = globalPossible[1] = false;
-
-        // 1단계: 확정 수식으로 가능 진법 교집합
-        for (String expr : expressions) {
-            String[] nums = expr.split("[+\\-=]");
-            String a   = nums[0].trim();
-            String b   = nums[1].trim();
-            String res = nums[2].trim();
-
-            if (res.equals("X")) continue;
-
-            boolean isPlus = expr.contains("+");
-            boolean[] possible = new boolean[10];
-
-            for (int j = 2; j <= 9; j++) {
-                try {
-                    int A = Integer.parseInt(a, j);
-                    int B = Integer.parseInt(b, j);
-                    int C = Integer.parseInt(res, j);
-                    possible[j] = isPlus ? (A + B == C) : (A - B == C);
-                } catch (NumberFormatException e) {
-                    possible[j] = false;
-                }
-            }
-
-            for (int j = 2; j <= 9; j++) {
-                if (!possible[j]) globalPossible[j] = false;
+        List<String> list = new ArrayList();
+        
+        boolean[] jin = new boolean[10];
+        for(int i=2; i<=9; i++){
+            jin[i] = true;
+        }
+        
+        int globalMax = 0;
+        for (String exp : expressions) {
+            for (int d = 1; d <= 8; d++) {
+                if (exp.contains(d + "")) globalMax = Math.max(globalMax, d);
             }
         }
+        for (int i = 2; i <= globalMax; i++) jin[i] = false;
+        
+        // 수식 결과가 X 거나 숫자거나
+        // 숫자인 경우를 확인해서 진법의 범위를 찾고
+        // X인 경우, 진법에 따라 결과가 같으면 숫자, 아니면 ?
+        
+        for(int i=0; i<expressions.length; i++){
+            if(expressions[i].contains("X")) continue;
+            check(jin, expressions[i]);
+        }
+        
+        for(int i=0; i<expressions.length; i++){
+            if(!expressions[i].contains("X")) continue;
+            String res = cal(jin, expressions[i]);
+            list.add(expressions[i].replace("X", res));
+        }
+        
+        return list.toArray(new String[0]);
+    }
+    
+    public String cal(boolean[] jin, String exp) {
+        String answer = "";
+        String[] arr = exp.split(" ");
 
-        // 2단계: X 수식의 피연산자 minBase로 추가 필터링
-        for (String expr : expressions) {
-            String[] nums = expr.split("[+\\-=]");
-            String a   = nums[0].trim();
-            String b   = nums[1].trim();
-            String res = nums[2].trim();
-
-            if (!res.equals("X")) continue;
-
-            int minBase = 2;
-            for (char c : (a + b).toCharArray()) {
-                if (Character.isDigit(c)) {
-                    minBase = Math.max(minBase, (c - '0') + 1);
-                }
-            }
-
-            for (int j = 2; j < minBase; j++) {
-                globalPossible[j] = false;
-            }
+        int max = 0;
+        for (int i = 1; i <= 8; i++) {
+            if (exp.contains(i + "")) max = i;
         }
 
-        // 3단계: X 수식 결과 계산
-        String[] answer = new String[expressions.length];
+        for (int i = max+1; i < jin.length; i++) {
+            if (!jin[i]) continue;
 
-        for (int i = 0; i < expressions.length; i++) {
-            String expr = expressions[i];
-            String[] nums = expr.split("[+\\-=]");
-            String a   = nums[0].trim();
-            String b   = nums[1].trim();
-            String res = nums[2].trim();
+            int a = Integer.parseInt(arr[0], i);
+            int b = Integer.parseInt(arr[2], i);
+            int calVal = arr[1].equals("+") ? a + b : a - b;
 
-            if (!res.equals("X")) {
-                answer[i] = expr;
-                continue;
-            }
+            String cur = Integer.toString(calVal, i);
 
-            boolean isPlus = expr.contains("+");
-
-            int minBase = 2;
-            for (char c : (a + b).toCharArray()) {
-                if (Character.isDigit(c)) {
-                    minBase = Math.max(minBase, (c - '0') + 1);
-                }
-            }
-
-            String resStr = null;
-            boolean isQuestion = false;
-
-            for (int j = minBase; j <= 9; j++) {
-                if (!globalPossible[j]) continue;
-                try {
-                    int A = Integer.parseInt(a, j);
-                    int B = Integer.parseInt(b, j);
-                    int cal = isPlus ? A + B : A - B;
-                    String calStr = Integer.toString(cal, j);
-
-                    if (resStr == null) {
-                        resStr = calStr;
-                    } else if (!resStr.equals(calStr)) {
-                        isQuestion = true;
-                        break;
-                    }
-                } catch (NumberFormatException e) {
-                    // skip
-                }
-            }
-
-            answer[i] = isQuestion || resStr == null
-                ? expr.replace("X", "?")
-                : expr.replace("X", resStr);
-        }
-
-        // 4단계: 원본이 X였던 수식만 반환
-        List<String> result = new ArrayList<>();
-        for (int i = 0; i < expressions.length; i++) {
-            if (expressions[i].contains("X")) {
-                result.add(answer[i]);
+            if (answer.equals("")) {
+                answer = cur;
+            } else if (!answer.equals(cur)) {
+                return "?";
             }
         }
-        return result.toArray(new String[0]);
+        return answer;
+    }
+
+    public void check(boolean[] jin, String exp) {
+
+        String[] arr = exp.split(" ");
+        String c = arr[4];   
+
+        for (int i = 2; i < jin.length; i++) {
+            if (!jin[i]) continue;
+            int a = Integer.parseInt(arr[0], i);
+            int b = Integer.parseInt(arr[2], i);
+            int calVal = arr[1].equals("+") ? a + b : a - b;
+
+            if (!Integer.toString(calVal, i).equals(c)) {
+                jin[i] = false;
+            }
+        }
     }
 }
